@@ -1,0 +1,3 @@
+#!/bin/bash
+
+egrep 'CAPE using virtual temperature:' sondeos.txt > dfprueba.csv
