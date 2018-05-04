@@ -1,0 +1,214 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{framed}
+\usepackage{wrapfig}
+\usepackage{color}
+
+\title{Reporte de Actividad 9 - Sistema de álgebra computacional Maxima ~\\ Funciones, Variables y Ecuaciones}
+
+\author{Diego Iván Moreno Campa}
+
+\date{28 de Abril, 2018}
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+\section{Variables}
+
+Al escribir las letras $x$ y $t$ en algun comando de Maxima se interpretan automaticamente como variables, sin embargo, si queremos utilizar constantes como $R$ para escribir sin ingresar el valor cada vez que la utilizamos, le asignaríamos el valor a través del signo = como se acostumbra a hacer en otros lenguajes. Para Maxima el signo = se utiliza para ecuaciones, por lo que si escribimos:
+\[ \textbf{(\%i1) }R=3.75; \]
+La salida nos dara
+\[ \textbf{(\%o1) }R; \]
+
+Para asignarle valores a variables se utilizan los dobles puntos como se muestra a continuación:
+\[ \textbf{(\%i2) }R:3.75; \]
+Lo que significa que cuando escribamos $R$ en la salida obtendremos el valor $3.75$
+\[ \textbf{(\%o2) }3.75; \]
+
+Entonces ahora podemos utilizar la letra $R$ para referirnos al valor $3.75$, para usarlo en expresiones como:
+\[ \textbf{(\%i3) }\%pi*R\text{\textasciicircum}2; \]
+\[ \textbf{(\%o3) }14.0625\cdot\pi \]
+\[ \textbf{(\%i5) }A:\%pi*R\text{\textasciicircum}2; \text{float}(A); \]
+\[ \textbf{(\%o4) }14.0625\cdot\pi \]
+\[ \textbf{(\%o5) }44.17864669110646 \]
+
+\newpage
+
+En el caso de que querramos reuitlizar las variables $R$ y $A$ para otro propósito podemos matar la variable con el comando \textit{kill} sobre la variable
+\[ \textbf{(\%i6) }\text{kill}(R); \]
+\[ \textbf{(\%o6) }done \]
+Así si queremos imprimir $R$
+\[ \textbf{(\%i7) }R; \]
+\[ \textbf{(\%o7) }R \]
+Tambien podemos utilizarlo sobre varios y el \textit{objeto} que sea:
+\[ \textbf{(\%i8) }\text{kill}(R,A); \]
+\[ \textbf{(\%o8) }done \]
+
+\section{Funciones}
+
+Si queremos usar funciones, debemos asignarles una función ¿cierto?, ¿entonces cómo se asigna? puesto que las variables toman valores utilizando los dobles puntos y las ecuaciones utilizando los iguales, ¿Sí ya estan reservados esos simbolos de asignación que se utiliza? la respuesta es la combinacion de ambos '\textit{:=}'
+\[ \textbf{(\%i1) }\text{f}(x)\text{:=}2*x+7 \]
+\[ \textbf{(\%o1) }\text{f}(x):=2x+7 \]
+
+Así ya se puede evaluar la función:
+\[ \textbf{(\%i4) }\text{f}(3);\text{f}(2.56);f(\%e); \]
+\[ \textbf{(\%o2) }13 \]
+\[ \textbf{(\%o3) }12.12 \]
+\[ \textbf{(\%o4) }2 \%e +7 \]
+
+Por como se definen las funciones, tambien podemos asignar cualquier nombre a la función y a la variable:
+
+\[ \textbf{(\%i5) }\text{cosa}(\text{em}):=\text{em}^3-1; \]
+\[ \textbf{(\%o5) }\text{cosa}(em):=em^3-1 \]
+\[ \textbf{(\%i6) }\text{cosa}(8); \]
+\[ \textbf{(\%o6) }511 \]
+
+\newpage
+
+Lo bueno de poder escribir lo que sea como variable es que al hacer esto:
+\[ \textbf{(\%i7) }\text{cosa}(2*x+7); \]
+\[ \textbf{(\%o7) }(2x+7)^3-1 \]
+lo que significa que realiza composiciones!, por lo que podemos hacer cosas como esto:
+\[ \textbf{(\%i8) }\text{h}(x)\text{:=}\text{cosa}(\text{f}(x)); \]
+\[ \textbf{(\%o8) }\text{h}(x):=\text{cosa}(\text{f}(x)) \]
+\[ \textbf{(\%i9) }\text{h}(x); \]
+\[ \textbf{(\%o9) }(2x+7)^3-1 \]
+\[ \textbf{(\%i10) }\text{h}(8);\]
+\[ \textbf{(\%o10) }12166\]
+
+\section{Ecuaciones}
+
+Anteriormente observamos que wxMaxima reserva el simbolo = para las ecuaciones y, aparte de esto, les podemos asignar nombres a las ecuaciones:
+\[ \textbf{(\%i1) }E:x\text{\textasciicircum}2=4; \]
+\[ \textbf{(\%o1) }x^2=4 \]
+\[ \textbf{(\%i2) }F:5*x-3=9;\]
+\[ \textbf{(\%o2) }5x-3=9\]
+
+Lo mejor de esto es que hace el manejo de ecuaciones mucho mas fácil, por ejemplo podemos sumar las ecuaciones, elevarlas al cuadrado, multiplicarlas y sumarles otra ecuacion, etc.
+
+\[ \textbf{(\%i3) }E+F; \]
+\[ \textbf{(\%o3) }x^2+5x-3=13 \]
+
+\[ \textbf{(\%i4) }F\text{\textasciicircum}2; \]
+\[ \textbf{(\%o4) }(5x-3)^2=81 \]
+
+\[ \textbf{(\%i5) }\text{sqrt}(F)-3*E; \]
+\[ \textbf{(\%o5) }\sqrt{5x-3}-3x^2=-9 \]
+
+Y de hecho, podemos utilizar las funciones rhs() y lhs() para seleccionar únicamente el lado derecho o el lado izquierdo respectivamente:
+\[ \textbf{(\%i8) }G:x\text{\textasciicircum}2+2*x=4*\sin(x); \text{rhs}(G); \text{lhs}(G); \]
+\[ \textbf{(\%o6) }x^2+2x=4\sin(x) \]
+\[ \textbf{(\%o7) }4\sin(x) \]
+\[ \textbf{(\%o8) }x^2+2x \]
+
+\subsection{Resolución de ecuaciones}
+
+Una de las principales razones por las que los sistemas de cómputo algebraico como Maxima fueron creados es para simplificar la resolución de ecuaciones tediosas. Maxima contiene una función preestablecida llamada \textit{solve()} que hace lo siguiente:
+\[ \textbf{(\%i9) }\text{solve}(3*x-7=15,x); \]
+\[ \textbf{(\%o9) }[x=\frac{22}{3}] \]
+o también
+\[ \textbf{(\%i9) }\text{solve}(x\text{\textasciicircum}2-3*x+3,x); \]
+\[ \textbf{(\%o9) }[x=\frac{\sqrt{3}\%i-3}{2},x=\frac{\sqrt{3}\%i+3}{2}] \]
+donde $\%i$ es la unidad compleja $i=\sqrt{-1}$
+~\\
+
+Esta función toma el primer valor de entrada como una ecuación y el segundo como la variable, luego regresa un listado de soluciones a la ecuación. Debido a que las ecuaciones estan todas escritas con variables se debe especificar la variable para la que se resolvera.
+~\\
+
+Entonces si tenemos una función f($x$) y la igualamos a un valor, digamos $7$, la función solve() resolvera para los valores de $x$ con los que f($x$) devuelve el valor $7$.
+
+\[ \textbf{(\%i10) }\text{f}(x):=x\text{\textasciicircum}3+2*x-5; \]
+\[ \textbf{(\%o10) }\text{f}(x):=x\text{\textasciicircum}3+2x-5 \]
+
+\[ \textbf{(\%i11) }\text{solve}(\text{f}(x)=7,x); \]
+\[ \textbf{(\%o11) }[x=-\sqrt(5)*\%i-1,x=\sqrt(5)*\%i-1,x=2] \]
+
+O incluso podriamos igualar dos funciones para saber con que valor de $x$ se cumple la igualdad:
+
+\[ \textbf{(\%i12) }\text{g}(x):=x\text{\textasciicircum}3+5*x-8; \]
+\[ \textbf{(\%o12) }\text{g}(x):=x\text{\textasciicircum}3+5x-8 \]
+
+\[ \textbf{(\%i13) }\text{solve}(\text{f}(x)=\text{g}(x),x); \]
+\[ \textbf{(\%o13) }[x=1] \]
+
+En el caso de únicamente incluir una función como la entrada de \textit{solve()}, el sistema lo resuelve como si estuviera igualada a cero y encuentra sus raíces.
+~\\
+
+\[ \textbf{(\%i14) }\text{solve}(x\text{\textasciicircum}2+x-1); \]
+\[ \textbf{(\%o14) }[x=-\frac{\sqrt{5}+1}{2},x=\frac{\sqrt{5}-1}{2}] \]
+
+Como ya sabemos, podemos nombrar a los objetos de Maxima como querramos, es por es por esto que si nombramos al arreglo de soluciones como queramos:
+
+\[ \textbf{(\%i15) }L:\text{solve}(x\text{\textasciicircum}2+x-1); \]
+\[ \textbf{(\%o15) }[x=-\frac{\sqrt{5}+1}{2},x=\frac{\sqrt{5}-1}{2}] \]
+
+Debido a esto es fácil manejar las múltiples raíces con tan solo indicar el índice del arreglo $L$ en corchetes:
+
+\[ \textbf{(\%i16) }L[1]; \]
+\[ \textbf{(\%o16) }x=-\frac{\sqrt{5}+1}{2} \]
+
+\subsection{Reemplazo de valores después de resolver}
+
+Cuando resolvemos una ecuación usualmente continuamos a reemplazar valores en otra ecuación o formula. En Maxima hay una función \textit{subst()} que se utiliza para esto, sustituir valores en formulas. La función \textit{subst()} parecería redundante pero a la hora de obtener soluciones complejas es útil tener una forma de solamente escribir el índice en el arreglo de las raíces $L[1]$ sobre la función para que se sustituya en alguna ecuación $E$ o función $\text{f}(x)$
+~\\
+simplemente escribimos:
+\[ \textbf{(\%i1) }\text{subst}(x=3,x^2+1); \]
+\[ \textbf{(\%o1) }10 \]
+~\\
+Ahora, digamos que tenemos una expresión para obtener el radio de una esfera $2*R^3-5*R=7$, la cual podemos resolver y utilziar el resultado para obtener el volumen de la esfera en cuestión.
+\[ \textbf{(\%i2) }r:\text{solve}(2*R\text{\textasciicircum}3-5*R=7,R); \]
+
+\newpage
+
+\[ \mathrm{\tt \textbf{(\%o2)} }\quad [R=\frac{5\cdot \left( \frac{\sqrt{3}\cdot i}{2}-\frac{1}{2}\right) }{6\cdot {{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}}+{{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}\cdot \left( -\frac{1}{2}-\frac{\sqrt{3}\cdot i}{2}\right) \] 
+\[ ,R={{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}\cdot \left( \frac{\sqrt{3}\cdot i}{2}-\frac{1}{2}\right) +\frac{5\cdot \left( -\frac{1}{2}-\frac{\sqrt{3}\cdot i}{2}\right) }{6\cdot {{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}} \] 
+\[ ,R={{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}+\frac{5}{6\cdot {{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}}] \]
+
+Viendo estas soluciones podemos observar que la tercera es la único solución real:
+
+\[ \textbf{(\%i3) }r[3] \]
+\[ \textbf{(\%o3) }R={{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}+\frac{5}{6\cdot {{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}} \]
+
+nos muestra el valor en forma de una ecuación, la cual podemos utilizar en \textit{subst()}:
+\[ \textbf{(\%i4) }\text{subst}(r[3],(4/3)*\%pi*R\text{\textasciicircum}3); \]
+\[ \mathrm{\tt \textbf{(\%o4)} }\quad \frac{4\cdot {{\left( \frac{5}{6\cdot {{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}}+{{\left( \frac{7}{4}+\frac{\sqrt{1073}}{4\cdot {{3}^{\frac{3}{2}}}}\right) }^{\frac{1}{3}}}\right) }^{3}}\cdot \pi }{3} \]
+
+Para obtener un valor numérico utilizamos la función \textit{float()}:
+\[ \textbf{(\%i5) }\text{float}(\text{subst}(r[3],(4/3)*\%pi*R\text{\textasciicircum}3)); \]
+\[ \textbf{(\%o5) }36.1385405321193 \]
+
+\newpage
+
+\section{Bibliografía}
+\begin{itemize}
+\item Scot Childress. (2016). Functions, Variables, and Equations. April 28 2018, de Scot Childress Sitio web: http://www.scotchildress.com/wxmaxima/Variables\_Functions\_Equations/Variables\_Functions\_and\_Equations.html
+\end{itemize}
+
+\newpage
+
+\title{Apéndice}
+
+\begin{enumerate}
+\item \textbf{¿Cuál fue tu primera impresión de wxmaxima?} ~\\~\\
+Me parece una herramienta útil para resolver algunos problemas
+
+\item \textbf{¿Crees que esta herramienta puede ser útil en otros de tus cursos?}~\\~\\
+seguramente si
+
+\item \textbf{¿Qué se te dificultó mas en esta actividad?}~\\~\\
+se me dificultó utilizar la función de sustitución en algunos casos por la forma en que toman las expresiones, pero hablando de la práctica no se me dificultó nada
+
+\item \textbf{¿Se te hizo compleja esta actividad? ¿Cómo la mejorarías? }~\\~\\
+No se me hizo compleja, de hecho se me hizo una de las mas simples
+
+\end{enumerate}
+
+\end{document}
